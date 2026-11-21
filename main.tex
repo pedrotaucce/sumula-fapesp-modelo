@@ -1,0 +1,156 @@
+\documentclass[10pt,a4paper]{article}
+
+%==========================================================================
+% DADOS DO PESQUISADOR -- edite apenas este bloco
+%==========================================================================
+\newcommand{\PesquisadorNome}{Fulane de Tal}
+\newcommand{\idScholar}{XXXXXXXXXXXX}      % ID do perfil no Google Scholar (parâmetro user=)
+\newcommand{\idResearcher}{0000000}        % ID no Publons/ResearcherID (Web of Science)
+\newcommand{\idORCID}{0000-0000-0000-0000} % ORCID
+\newcommand{\idScopus}{00000000000}        % Author ID no Scopus
+\newcommand{\idLattes}{0000000000000000}    % ID do Currículo Lattes (16 dígitos)
+%==========================================================================
+
+
+% Margens
+\usepackage[
+  a4paper,
+  left=2.5cm,
+  right=2cm,
+  top=2cm,
+  bottom=2cm,
+  headheight=14pt,
+  headsep=0.25cm
+]{geometry}
+
+% === Data automática (formato: mês/ano) ===
+\usepackage[brazil]{babel}
+
+% Cria um comando que traduz o número do mês em texto
+\newcommand{\MesNome}{
+  \ifcase\month
+  \or janeiro\or fevereiro\or março\or abril\or maio\or junho%
+  \or julho\or agosto\or setembro\or outubro\or novembro\or dezembro%
+  \fi
+}
+
+% Comando final para data no formato desejado
+\newcommand{\SumulaData}{\MesNome/\the\year}
+
+
+
+\usepackage{fancyhdr} % Pacote para personalizar cabeçalhos e rodapés
+\pagestyle{fancy} % Ativa o estilo 'fancy'
+\fancyhf{} % Limpa cabeçalhos e rodapés
+\fancyfoot[R]{\thepage} % Insere o número da página no canto inferior direito
+
+% Cabeçalho personalizado
+\fancyhead[L]{\small \textbf{Súmula Curricular -- \PesquisadorNome}}
+\fancyhead[R]{\small \textbf{\SumulaData}}
+
+% Fonte Arial (necessário XeLaTeX ou LuaLaTeX)
+%\usepackage{fontspec}
+%\setmainfont{Arial}
+% Pacote para inserir links
+\usepackage{xcolor}
+\definecolor{linkblue}{RGB}{0,70,140}
+
+\usepackage[
+  colorlinks=true,
+  linkcolor=linkblue,
+  urlcolor=linkblue,
+  citecolor=linkblue
+]{hyperref}
+% Para importar CSVs como tabelas
+\usepackage{pgfplotstable} % Pacote para lidar com tabelas CSV
+\pgfplotsset{compat=1.18} % Define a versão mais recente para evitar problemas de compatibilidade
+
+% Para exclamação invertida
+\usepackage{textcomp}
+
+% Estética da tabela (opcional)
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{array}
+
+% Para lógica
+\usepackage{xifthen}
+
+% Texto fictício (lorem ipsum) usado nos exemplos; remova quando substituir pelo seu texto
+\usepackage{lipsum}
+
+% Contador para as seções
+\newcounter{MySectionCounter}
+\setcounter{MySectionCounter}{0}
+
+% Comando para imprimir o título da seção em negrito, no mesmo tamanho de fonte, 
+% com a seção numerada e um espaço após
+\newcommand{\PrintSectionTitle}[1]{%
+  \addtocounter{MySectionCounter}{1}%
+  \noindent{\Large\textbf{\theMySectionCounter) #1}}\par\vspace{0.5em}%
+}
+
+% Macro para imprimir seções, verificando se há conteúdo
+\newcommand{\PrintSection}[2]{%
+  \PrintSectionTitle{#1}%
+  \IfFileExists{#2}{%
+    \input{#2}%
+  }{%
+    \textit{Nada a declarar}%
+  }%
+  \par\vspace{1em}
+}
+
+% Ambiente apenas para agrupar publicações
+\newenvironment{cvpubs}{%
+  \par\begingroup
+}{%
+  \par\endgroup
+}
+
+% Publicação com recuo pendente
+% A primeira linha começa na margem; as demais recuam 4em
+\newcommand*{\cvpub}[1]{%
+  \par\noindent
+  \hangindent=1.4em
+  \hangafter=1
+  #1\par
+}
+
+\begin{document}
+
+\begin{center}
+    \LARGE{\textbf{Súmula Curricular -- \PesquisadorNome}}
+\end{center}
+\vspace{1em}
+
+\fancypagestyle{plain}{%
+  \fancyhf{} % Limpa cabeçalhos e rodapés
+  \fancyfoot[R]{\thepage} % Insere o número da página no canto inferior direito
+  \renewcommand{\headrulewidth}{0pt} % Remove a linha horizontal do cabeçalho
+}
+\thispagestyle{plain}
+
+\begin{itemize}
+    \item \textbf{MyCitations (Google Scholar):} 
+    \href{https://scholar.google.com/citations?user=\idScholar&hl=en}{https://scholar.google.com/citations?user=\idScholar\&hl=en}
+
+    \item \textbf{MyResearcherID (ISI):} 
+    \href{https://publons.com/researcher/\idResearcher/}{https://publons.com/researcher/\idResearcher/}
+
+    \item \textbf{ORCID:} 
+    \href{https://orcid.org/\idORCID}{https://orcid.org/\idORCID}
+
+    \item \textbf{Scopus:} 
+    \href{https://www.scopus.com/authid/detail.uri?authorId=\idScopus}{https://www.scopus.com/authid/detail.uri?authorId=\idScopus}
+\end{itemize}
+\vspace{1em}
+
+\PrintSection{Formação}{1_formacao.tex}
+\PrintSection{Histórico Profissional/Acadêmico}{2_historico.tex}
+\PrintSection{Contribuições à Ciência}{3_resultados.tex}
+\PrintSection{Financiamentos à Pesquisa}{4_financiamentos.tex}
+\newpage \PrintSection{Indicadores Quantitativos}{5_indicadores.tex}
+\PrintSection{Outras Informações Relevantes}{6_outras_informacoes.tex}
+
+\end{document}

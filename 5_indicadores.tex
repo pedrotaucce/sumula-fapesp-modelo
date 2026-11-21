@@ -1,0 +1,39 @@
+% 5) Indicadores quantitativos. Indicação separada das quantidades totais de:
+% 1) livros publicados;
+% 2) publicações em periódicos com seletiva política editorial;
+% 3) capítulos de livros;
+% 4) dissertações de Mestrado:
+%   4.a) orientadas e já defendidas, e
+%   4.b) em andamento;
+% 5) teses de Doutorado:
+%   5.a) orientadas e já defendidas, e
+%   5.b) em andamento;
+% 6) supervisões de Pós-Doutorado:
+%   6.a) concluídas e,
+%   6.b) em andamento;
+% 7) quantidade de citações recebidas na literatura científica internacional, segundo o Web of Science, Scopus ou Google Scholar;
+% 8) patentes solicitadas, concedidas e licenciadas;
+% 9) produtos desenvolvidos e lançados no mercado;
+% 10) processos otimizados implementados em empresas ou organizações sociais;
+% 11) empresas criadas ou apoiadas;
+% 12) consultorias técnicas e científicas relevantes.
+% Importa o CSV indicadores.csv e gera a tabela
+% Certifique-se de que o arquivo indicadores.csv está no mesmo diretório
+% Dica: abra o indicadores.csv no Excel, edite e salve como "CSV UTF-8" (veja o README).
+
+\pgfplotstabletypeset[
+    col sep=semicolon, % Define que o separador é ponto e vírgula
+    header=true, % A primeira linha do CSV é o cabeçalho (as colunas são lidas por posição, imune ao BOM do Excel)
+    string type, % Define todas as colunas como texto
+    every head row/.style={before row=\toprule,after row=\midrule}, % Estilo do cabeçalho
+    every last row/.style={after row=\bottomrule}, % Estilo da última linha
+    every even row/.style={before row={\rowcolor[gray]{0.85}}}, % Estilo das linhas pares
+    every odd row/.style={before row={\rowcolor[gray]{0.95}}}, % Estilo das linhas ímpares
+    display columns/0/.style={column name={\textbf{Indicador}}, column type={p{12cm}}}, % Define a largura e título da coluna Tipo
+    display columns/1/.style={column name={\textbf{Quantidade}}, column type={c}}, % Define o título e alinhamento da coluna Número
+    columns={[index]0,[index]1},
+]{indicadores.csv}
+
+\vspace{1em}
+
+Para ver o \emph{Curriculum Lattes} do pesquisador, acesse \href{http://lattes.cnpq.br/\idLattes}{http://lattes.cnpq.br/\idLattes}.

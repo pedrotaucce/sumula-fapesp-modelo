@@ -1,0 +1,13 @@
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.synctex.gz
+.DS_Store
+*Zone.Identifier
+*.fls
+*.fdb_latexmk

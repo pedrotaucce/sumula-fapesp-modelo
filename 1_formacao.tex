@@ -1,0 +1,44 @@
+%-----------------------------------------------------------------------------------------
+% Instruções para formação
+% Crie um arquivo CSV chamado 'formacao.csv' com as colunas:
+% TituloAtividade;Periodo;InstituicaoEnsino
+%
+% Exemplo:
+% Doutorado em Ciências Biológicas, área de Zoologia;2014 a 2018;Universidade Exemplo
+%
+% Salve no mesmo diretório deste documento.
+% Dica: abra o formacao.csv no Excel, edite e salve como "CSV UTF-8" (veja o README).
+%-----------------------------------------------------------------------------------------
+
+\pgfplotstabletypeset[
+    col sep=semicolon,
+    header=true,        % a primeira linha do CSV é o cabeçalho
+    string type,
+    font=\normalsize,
+    every head row/.style={before row=\toprule, after row=\midrule},
+    every last row/.style={after row=\bottomrule},
+    every even row/.style={before row={\rowcolor[gray]{0.85}}},
+    every odd row/.style={before row={\rowcolor[gray]{0.95}}},
+    columns={[index]0,[index]1,[index]2},
+    display columns/0/.style={
+        column name={\textbf{Título ou atividade}},
+        column type={>{\raggedright\arraybackslash}m{4.5cm}}
+    },
+    display columns/1/.style={
+        column name={\textbf{Início--Término}},
+        column type={>{\raggedright\arraybackslash}m{3.0cm}}
+    },
+    display columns/2/.style={
+        column name={\textbf{Instituição de ensino}},
+        column type={>{\raggedright\arraybackslash}m{7.1cm}}
+    }
+]{formacao.csv}
+
+\vspace{1em}
+
+\emph{\large 1.1) Formação -- Informações Adicionais}
+
+\begin{itemize}
+    \item \textbf{AAAA--AAAA:} Período dedicado a atividade relevante que não aparece na tabela acima (por exemplo, preparação para concursos públicos, estágio fora da academia).
+    \item \textbf{Mês a mês de AAAA:} Afastamento ou licença que explique lacuna no currículo (por exemplo, licença-maternidade/paternidade, licença médica).
+\end{itemize}
